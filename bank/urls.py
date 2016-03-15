@@ -10,5 +10,6 @@ urlpatterns = [
     url(r'^homepage/$', views.homepage, name='homepage'),
     url(r'^view_accounts/$', views.view_accounts, name='view_accounts'),
     url(r'^money_transfer/$', views.money_transfer, name='money_transfer'),
+    url(r'^sign_out/$', views.sign_out, name='sign_out'),
 ]
 

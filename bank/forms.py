@@ -1,46 +1,48 @@
 from django import forms
-from models import Accounts, UserProfile
+from models import Accounts
 from django.utils.translation import ugettext as _
 from django.contrib.auth import hashers
 from django.contrib.auth.password_validation import validate_password
 from sampler.settings import AUTH_PASSWORD_VALIDATORS
+from django.contrib.auth.models import User
+
 
 class LoginForm(forms.Form):
-    user_name = forms.CharField(max_length=100)
+    username = forms.CharField(max_length=100)
     password = forms.CharField(widget=forms.PasswordInput)
 
-    def clean_user_name(self):
-        data=self.cleaned_data['user_name']
-        user_exists = UserProfile.objects.filter(user_name=data).exists()
+    def clean_username(self):
+        data=self.cleaned_data['username']
+        user_exists = User.objects.filter(username=data).exists()
         if not user_exists:
             raise forms.ValidationError(_('Check User Name and Password'), code='invalid')
         return data
 
     def clean(self):
         cleaned_data = super(LoginForm, self).clean()
-        user_name = cleaned_data.get("user_name")
+        username = cleaned_data.get("username")
         password = cleaned_data.get("password")
-        user_profile = UserProfile.objects.get(user_name=user_name)
-        if not user_name or not password or not hashers.check_password(password, user_profile.password):
+        user_profile = User.objects.get(username=username)
+        if not username or not password or not hashers.check_password(password, user_profile.password):
             raise forms.ValidationError(_('Check User Name and Password'), code='invalid')
 
 class RegisterForm(forms.Form):
     first_name = forms.CharField(max_length=100)
     last_name = forms.CharField(max_length=100)
-    user_name = forms.CharField(max_length=100)
+    username = forms.CharField(max_length=100)
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
 
     def clean_email(self):
         data=self.cleaned_data['email']
-        user_exists = UserProfile.objects.filter(user_email=data).exists()
+        user_exists = User.objects.filter(email=data).exists()
         if user_exists:
             raise forms.ValidationError(_('Email already exists'), code='invalid')
         return data
 
-    def clean_user_name(self):
-        data=self.cleaned_data['user_name']
-        user_exists = UserProfile.objects.filter(user_name=data).exists()
+    def clean_username(self):
+        data=self.cleaned_data['username']
+        user_exists = User.objects.filter(username=data).exists()
         if user_exists:
             raise forms.ValidationError(_('User Name already exists'), code='invalid')
         return data
@@ -64,14 +66,16 @@ class MoneyTransferForm(forms.Form):
 
     def clean_from_email(self):
         data = self.cleaned_data['from_email']
-        user_exists = UserProfile.objects.filter(user_email=data).exists()
+        import pdb; pdb.set_trace()
+        user_exists = User.objects.filter(email=data).exists()
         if not user_exists:
             raise forms.ValidationError(_('Invalid email'), code='invalid')
         return data
 
     def clean_to_email(self):
         data = self.cleaned_data['to_email']
-        user_exists = UserProfile.objects.filter(user_email=data).exists()
+        import pdb; pdb.set_trace()
+        user_exists = User.objects.filter(email=data).exists()
         if not user_exists:
             raise forms.ValidationError(_('Invalid email'), code='invalid')
         return data
@@ -80,9 +84,10 @@ class MoneyTransferForm(forms.Form):
         cleaned_data = super(MoneyTransferForm, self).clean()
         from_email = cleaned_data.get("from_email")
         transfer_value = cleaned_data.get("transfer_value")
-
+        import pdb; pdb.set_trace()
         if from_email and transfer_value:
-            user_account = Accounts.objects.get(user__user_email=from_email)
+            import pdb; pdb.set_trace()
+            user_account = Accounts.objects.get(user__email=from_email)
             if not user_account.balance >= transfer_value:
                 raise forms.ValidationError(_('Insufficient Balance'), code='invalid')
 

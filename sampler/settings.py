@@ -133,6 +133,11 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 #redirects http requests to https
 #SECURE_SSL_REDIRECT = True
 
+from urlparse import urljoin
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']
+BANK_API_ROOT_URL =  'http://127.0.0.1/bank/'
+LOGIN_URL = urljoin(BANK_API_ROOT_URL, 'index.html')
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
