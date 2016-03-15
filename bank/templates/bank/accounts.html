@@ -1,0 +1,16 @@
+{% load bank_templatetags %}
+<div>
+    <table>
+        <tr>
+            <th>Email</th>
+            <th>Balance</th>
+        </tr>
+        {% for account in accounts %}
+        <tr>
+            <td>{{account.user.user_email}}</td>
+            <td>{{account.balance|prepend_dollars}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+

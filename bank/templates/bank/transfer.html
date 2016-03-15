@@ -1,0 +1,11 @@
+<div>
+    <form action="{% url 'bank:money_transfer' %}" method="post">
+        {% csrf_token %}
+
+        {{form}}
+        <input type="hidden" name="from_email" value="{{user_email}}" />
+
+        <input type="submit" value="Send Money"/>
+    </form>
+
+</div>

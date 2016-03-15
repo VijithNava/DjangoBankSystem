@@ -1,0 +1,12 @@
+<form action="{% url 'bank:register' %}" method="post">
+    {% csrf_token %}
+    <!--{% for display_info in display_infos %}-->
+    <!--<div>-->
+        <!--<label>{{display_info.display_name}}</label><input type="{{display_info.input_type}}" name="{{display_info.field_name}}">-->
+    <!--</div>-->
+    <!--{% endfor %}-->
+
+    {{ form }}
+
+    <input type="submit" value="Register" />
+</form>

@@ -1,0 +1,9 @@
+<form action="{% url 'bank:index' %}" method="post">
+    {% csrf_token %}
+
+    {{ form }}
+
+    <input type="submit" value="Log In"/>
+    <a href="{% url 'bank:register' %}">Sign Up</a>
+
+</form>

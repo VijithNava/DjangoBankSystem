@@ -1,0 +1,18 @@
+{% load bank_templatetags %}
+<div>
+    <div>
+        <span>First Name</span>
+        <span>{{user_profile.first_name}}</span>
+    </div>
+    <div>
+        <span>Last Name </span>
+        <span>{{user_profile.last_name}}</span>
+    </div>
+    <div>
+        <span>Account Balance</span>
+        <span>{{user_account.balance|prepend_dollars}}</span>
+    </div>
+
+    <a href="{% url 'bank:view_accounts' %}">View All Accounts</a>
+    <a href="{% url 'bank:money_transfer' %}">Transfer Money</a>
+</div>
