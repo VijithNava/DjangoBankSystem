@@ -1,5 +1,14 @@
 {% load bank_templatetags %}
-<div>
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'bank/style.css' %}"/>
+<ul>
+    <li><a class="active" href="{% url 'bank:homepage' %}">Home</a></li>
+    <li><a href="{% url 'bank:view_accounts' %}">View All Accounts</a></li>
+    <li><a href="{% url 'bank:money_transfer' %}">Transfer Money</a></li>
+    <li style="float:right"><a href="{% url 'bank:sign_out' %}">Sign Out</a></li>
+</ul>
+
+<div id="main">
     <div>
         <span>First Name</span>
         <span>{{user_profile.first_name}}</span>
@@ -12,10 +21,4 @@
         <span>Account Balance</span>
         <span>{{user_account.balance|prepend_dollars}}</span>
     </div>
-
-    <a href="{% url 'bank:view_accounts' %}">View All Accounts</a>
-    <a href="{% url 'bank:money_transfer' %}">Transfer Money</a>
-    <a href="{% url 'bank:sign_out' %}">Sign Out</a>
 </div>
-
-

@@ -1,9 +1,29 @@
-<form action="{% url 'bank:index' %}" method="post">
-    {% csrf_token %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'bank/style.css' %}"/>
+<ul>
+    <li><a class="active" href="{% url 'bank:index' %}">Log In</a></li>
+    <li><a href="{% url 'bank:register' %}">Register</a></li>
+</ul>
+<h1>Simple Banking System</h1>
+<div id="main">
+    <form action="{% url 'bank:index' %}" method="post">
+        {% csrf_token %}
 
-    {{ form }}
+        <div class="fieldWrapper">
+            <label for="{{ form.username.id_for_label }}">Username:</label>
+            {{ form.username }}
+            {{ form.username.errors }}
+        </div>
+        <div class="fieldWrapper">
+            <label for="{{ form.password.id_for_label }}">Password:</label>
+            {{ form.password }}
+            {{ form.password.errors }}
+        </div>
+        {{ form.non_field_errors }}
 
-    <input type="submit" value="Log In"/>
+        <input type="submit" value="Log In"/>
+    </form>
+
     <a href="{% url 'bank:register' %}">Sign Up</a>
 
-</form>
+</div>

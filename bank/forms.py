@@ -22,9 +22,10 @@ class LoginForm(forms.Form):
         cleaned_data = super(LoginForm, self).clean()
         username = cleaned_data.get("username")
         password = cleaned_data.get("password")
-        user_profile = User.objects.get(username=username)
-        if not username or not password or not hashers.check_password(password, user_profile.password):
-            raise forms.ValidationError(_('Check User Name and Password'), code='invalid')
+        if username and password:
+            user_profile = User.objects.get(username=username)
+            if not username or not password or not hashers.check_password(password, user_profile.password):
+                raise forms.ValidationError(_('Check User Name and Password'), code='invalid')
 
 class RegisterForm(forms.Form):
     first_name = forms.CharField(max_length=100)
@@ -66,7 +67,6 @@ class MoneyTransferForm(forms.Form):
 
     def clean_from_email(self):
         data = self.cleaned_data['from_email']
-        import pdb; pdb.set_trace()
         user_exists = User.objects.filter(email=data).exists()
         if not user_exists:
             raise forms.ValidationError(_('Invalid email'), code='invalid')
@@ -74,7 +74,6 @@ class MoneyTransferForm(forms.Form):
 
     def clean_to_email(self):
         data = self.cleaned_data['to_email']
-        import pdb; pdb.set_trace()
         user_exists = User.objects.filter(email=data).exists()
         if not user_exists:
             raise forms.ValidationError(_('Invalid email'), code='invalid')
@@ -84,9 +83,7 @@ class MoneyTransferForm(forms.Form):
         cleaned_data = super(MoneyTransferForm, self).clean()
         from_email = cleaned_data.get("from_email")
         transfer_value = cleaned_data.get("transfer_value")
-        import pdb; pdb.set_trace()
         if from_email and transfer_value:
-            import pdb; pdb.set_trace()
             user_account = Accounts.objects.get(user__email=from_email)
             if not user_account.balance >= transfer_value:
                 raise forms.ValidationError(_('Insufficient Balance'), code='invalid')

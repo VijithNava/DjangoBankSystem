@@ -96,10 +96,8 @@ def money_transfer(request):
     user_account = get_object_or_404(Accounts, user=request.user)
     if request.method == 'POST':
         form = MoneyTransferForm(request.POST)
-        import pdb; pdb.set_trace()
         with transaction.atomic():
             if form.is_valid():
-                import pdb; pdb.set_trace()
                 transfer_value = form.cleaned_data['transfer_value']
                 recipient_email = form.cleaned_data['to_email']
                 user_account.balance -= transfer_value
@@ -107,7 +105,7 @@ def money_transfer(request):
                 recipient_account = Accounts.objects.get(user__email=recipient_email)
                 recipient_account.balance += transfer_value
                 recipient_account.save()
-        return redirect('bank:homepage')
+                return redirect('bank:homepage')
     else:
         form = MoneyTransferForm()
 

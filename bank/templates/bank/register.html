@@ -1,12 +1,42 @@
-<form action="{% url 'bank:register' %}" method="post">
-    {% csrf_token %}
-    <!--{% for display_info in display_infos %}-->
-    <!--<div>-->
-        <!--<label>{{display_info.display_name}}</label><input type="{{display_info.input_type}}" name="{{display_info.field_name}}">-->
-    <!--</div>-->
-    <!--{% endfor %}-->
+{% load staticfiles %}
 
-    {{ form }}
+<link rel="stylesheet" type="text/css" href="{% static 'bank/style.css' %}" />
+<ul>
+    <li><a href="{% url 'bank:index' %}">Log In</a></li>
+    <li><a  class="active" href="{% url 'bank:register' %}">Register</a></li>
+</ul>
+<h1>Simple Banking System</h1>
+<div id="main">
+    <form action="{% url 'bank:register' %}" method="post">
+        {% csrf_token %}
 
-    <input type="submit" value="Register" />
-</form>
+        <div class="fieldWrapper">
+            <label for="{{ form.first_name.id_for_label }}">First Name:</label>
+            {{ form.first_name }}
+            {{ form.first_name.errors }}
+        </div>
+        <div class="fieldWrapper">
+            <label for="{{ form.last_name.id_for_label }}">Last Name:</label>
+            {{ form.last_name }}
+            {{ form.last_name.errors }}
+        </div>
+        <div class="fieldWrapper">
+            <label for="{{ form.username.id_for_label }}">Username:</label>
+            {{ form.username }}
+            {{ form.username.errors }}
+        </div>
+        <div class="fieldWrapper">
+            <label for="{{ form.email.id_for_label }}">Email:</label>
+            {{ form.email }}
+            {{ form.email.errors }}
+        </div>
+        <div class="fieldWrapper">
+            <label for="{{ form.password.id_for_label }}">Password:</label>
+            {{ form.password }}
+            {{ form.password.errors }}
+        </div>
+        {{ form.non_field_errors }}
+
+        <input type="submit" value="Register" />
+    </form>
+</div>

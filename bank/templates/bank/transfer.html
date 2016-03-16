@@ -1,13 +1,29 @@
-<div>
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'bank/style.css' %}" />
+<ul>
+    <li><a href="{% url 'bank:homepage' %}">Home</a></li>
+    <li><a href="{% url 'bank:view_accounts' %}">View All Accounts</a></li>
+    <li><a class="active" href="{% url 'bank:money_transfer' %}">Transfer Money</a></li>
+    <li style="float:right"><a href="{% url 'bank:sign_out' %}">Sign Out</a></li>
+</ul>
+<div id="main">
     <form action="{% url 'bank:money_transfer' %}" method="post">
         {% csrf_token %}
 
-        {{form}}
+        <div class="fieldWrapper">
+            <label for="{{ form.to_email.id_for_label }}">Recipient Email:</label>
+            {{ form.to_email }}
+            {{ form.to_email.errors }}
+        </div>
+        <div class="fieldWrapper">
+            <label for="{{ form.transfer_value.id_for_label }}">Transfer Amount:</label>
+            {{ form.transfer_value }}
+            {{ form.transfer_value.errors }}
+        </div>
+        {{ form.non_field_errors }}
+
         <input type="hidden" name="from_email" value="{{email}}" />
 
         <input type="submit" value="Send Money"/>
     </form>
-
 </div>
-<a href="{% url 'bank:homepage' %}">Home</a>
-<a href="{% url 'bank:sign_out' %}">Sign Out</a>
