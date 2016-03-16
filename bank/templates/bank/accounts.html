@@ -16,8 +16,8 @@
         </tr>
         {% for account in accounts %}
         <tr>
-            <td>{{account.user.email}}</td>
-            <td>{{account.balance|prepend_dollars}}</td>
+            <td id="user_info">{{account.user.email}}</td>
+            <td id="user_info">{{account.balance|prepend_dollars}}</td>
         </tr>
         {% endfor %}
     </table>

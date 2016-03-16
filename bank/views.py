@@ -86,7 +86,6 @@ def homepage(request):
 @login_required(login_url=LOGIN_URL)
 def view_accounts(request):
     accounts = Accounts.objects.exclude(user=request.user)
-
     return render(request=request, template_name='bank/accounts.html',
                   context={'accounts': accounts})
 

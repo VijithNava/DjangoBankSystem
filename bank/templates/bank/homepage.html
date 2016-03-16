@@ -9,16 +9,24 @@
 </ul>
 
 <div id="main">
-    <div>
-        <span>First Name</span>
+    <div id="user_info">
+        <span>First Name:</span>
         <span>{{user_profile.first_name}}</span>
     </div>
-    <div>
-        <span>Last Name </span>
+    <div id="user_info">
+        <span>Last Name:</span>
         <span>{{user_profile.last_name}}</span>
     </div>
-    <div>
-        <span>Account Balance</span>
+    <div id="user_info">
+        <span>Username:</span>
+        <span>{{user_profile.username}}</span>
+    </div>
+    <div id="user_info">
+        <span>Email:</span>
+        <span>{{user_profile.email}}</span>
+    </div>
+    <div id="user_info">
+        <span>Account Balance:</span>
         <span>{{user_account.balance|prepend_dollars}}</span>
     </div>
 </div>
